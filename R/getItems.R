@@ -5,6 +5,7 @@
 #                   it is possible to enter severl states like this
 #                   for example: c(1, 2, 3).
 #' @return Item dataset with tags (if available) and without JSON formatting
+#' @export
 getItems <- function(domainId,
                      itemStatus = 1) {
   con <- oefenwebDatabase::connect()
