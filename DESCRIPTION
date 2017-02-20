@@ -11,6 +11,8 @@ BugReports: https://github.com/Oefenweb/r-tools/issues
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+Remotes: Oefenweb/r-item-json-parser,
+  	     Oefenweb/r-database
 Imports:
     DBI (>= 0.5),
     RMySQL (>= 0.10),
