@@ -18,3 +18,9 @@ make item questions and answers readable. The only input variables for the getIt
 function are the domain id and status of items (optionally with default status = 1 (active))
 }
 
+\section{convertRating function}{
+ Function to insert either a "normal" theta user domain
+rating, a transformed rating or a Q-score. The input rating is converted into all three
+different ratings and printed to the console.
+}
+
