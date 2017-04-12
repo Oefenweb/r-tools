@@ -1,4 +1,5 @@
 #' Function to transform rating into transformed rating
+#'
 #' @param theta Normal theta rating
 #' @param beta All item ratings of the associated items
 #' @return Transformed rating
