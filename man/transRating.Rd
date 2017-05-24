@@ -17,4 +17,3 @@ Transformed rating
 \description{
 Function to transform rating into transformed rating
 }
-

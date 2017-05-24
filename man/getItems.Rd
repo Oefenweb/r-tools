@@ -17,4 +17,3 @@ Item dataset with tags (if available) and without JSON formatting
 \description{
 Function to obtain items without JSON format and with tags (if available).
 }
-

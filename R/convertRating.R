@@ -15,6 +15,7 @@ transRating <- function(theta, beta) {
 #' "transformed rating" if the input rating is a transformed rating and "Q-Score" if the input
 #' rating is a Q-Score
 #' @return Converted versions of input rating
+#' @importFrom utils tail
 #' @export
 convertRating <- function(rating,
                           domainId,
@@ -82,12 +83,18 @@ convertRating <- function(rating,
 
     Qscore$diff <- Qscore$rating - theta
     Qscore$diff[Qscore$diff < 0] <- 100
-    qScore <- Qscore$q_score[which.min(Qscore$diff)]
+    if (all(Qscore$diff >= 100)) {
+      qScore <- tail(Qscore, 1)$q_score
+    } else {
+      qScore <- Qscore$q_score[which.min(Qscore$diff)]
+    }
   }
 
   # make transformation for type qscore
   if (type == "Q-Score") {
-    theta <- Qscore$rating[which.min(abs(Qscore$q_score - rating))]
+    thetaIndex <- which.min(abs(Qscore$q_score - rating))
+    thetaIndex <- ifelse(thetaIndex == 1000, 999, thetaIndex)
+    theta <- Qscore$rating[thetaIndex]
     qScore <- rating
     transformedRating <- transRating(theta, items$rating)
   }

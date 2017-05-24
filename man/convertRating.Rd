@@ -22,4 +22,3 @@ Converted versions of input rating
 \description{
 Rating Transformation Function
 }
-

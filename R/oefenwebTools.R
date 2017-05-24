@@ -16,6 +16,10 @@
 #' rating, a transformed rating or a Q-score. The input rating is converted into all three
 #' different ratings and printed to the console.
 #'
+#' @section Progressor function: Function to track progress of a for loop.
+#'
+#' @section lintrProfile: Function to lint R scripts with Oefenweb default lintr options.
+#'
 #' @docType package
 #' @name oefenwebTools
 NULL
