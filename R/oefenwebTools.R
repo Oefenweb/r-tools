@@ -18,7 +18,11 @@
 #'
 #' @section Progressor function: Function to track progress of a for loop.
 #'
-#' @section lintrProfile: Function to lint R scripts with Oefenweb default lintr options.
+#' @section lintrProfile function: Function to lint R scripts with Oefenweb default lintr options.
+#'
+#' @section createDir function: Function to create directory on hard disk if it does not exist.
+#'
+#' @section UpperCase function: Capitalizes all first letters of a word in a strings (or verctor of strings).
 #'
 #' @docType package
 #' @name oefenwebTools
