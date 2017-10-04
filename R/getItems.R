@@ -75,7 +75,7 @@ getItems <- function(domainId,
   }
 
   # close connnection
-  oefenwebDatabase::close_connections()
+  oefenwebDatabase::close_connection(con)
   # remove JSON
   parsedItems <- oefenwebItemJsonParser::itemJsonParser(itemsWithTags,
                                                         withFeedback = TRUE)
