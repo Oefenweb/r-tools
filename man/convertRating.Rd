@@ -4,13 +4,15 @@
 \alias{convertRating}
 \title{Rating Transformation Function}
 \usage{
-convertRating(rating, domainId, type = c("rating", "transformed rating",
-  "Q-Score"))
+convertRating(rating, domainId, database = "oefenweb_nl_app",
+  type = c("rating", "transformed rating", "Q-Score"))
 }
 \arguments{
 \item{rating}{Theta, transformed rating or Qscore as input rating}
 
 \item{domainId}{Game domain id}
+
+\item{database}{name of database}
 
 \item{type}{Type of input rating, it should be "rating" for a normal theta rating,
 "transformed rating" if the input rating is a transformed rating and "Q-Score" if the input
