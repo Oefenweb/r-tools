@@ -2,7 +2,7 @@
 #'
 #' @param domainId An item domain id
 #' @param itemStatus Item status (in numeric or character),
-#'                   it is possible to enter severl states like this
+#'                   it is possible to enter several states like this
 #'                   for example: c(1, 2, 3).
 #' @param dbname Name of database
 #' @return Item dataset with tags (if available) and without JSON formatting
