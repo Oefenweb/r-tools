@@ -2,13 +2,15 @@
 #'
 #' @param domainId An item domain id
 #' @param itemStatus Item status (in numeric or character),
-#                   it is possible to enter severl states like this
-#                   for example: c(1, 2, 3).
+#'                   it is possible to enter several states like this
+#'                   for example: c(1, 2, 3).
+#' @param dbname Name of database
 #' @return Item dataset with tags (if available) and without JSON formatting
 #' @export
 getItems <- function(domainId,
-                     itemStatus = 1) {
-  con <- oefenwebDatabase::connect()
+                     itemStatus = 1,
+                     dbname = "oefenweb_nl_app") {
+  con <- oefenwebDatabase::connect(dbname)
   domains <- suppressWarnings(DBI::dbReadTable(con, "domains"))
   domainId <- suppressWarnings(as.numeric(domainId))
 
