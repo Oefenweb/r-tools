@@ -11,19 +11,21 @@ transRating <- function(theta, beta) {
 #'
 #' @param rating Theta, transformed rating or Qscore as input rating
 #' @param domainId Game domain id
-#' @param database name of database
 #' @param type Type of input rating, it should be "rating" for a normal theta rating,
 #' "transformed rating" if the input rating is a transformed rating and "Q-Score" if the input
 #' rating is a Q-Score
+#' @param database name of database
+#' @param printResults should results be printed?
 #' @return Converted versions of input rating
 #' @importFrom utils tail
 #' @export
 convertRating <- function(rating,
                           domainId,
-                          database = "oefenweb_nl_app",
                           type = c("rating",
                                    "transformed rating",
-                                   "Q-Score")) {
+                                   "Q-Score"),
+                          database = "oefenweb_nl_app",
+                          printResults = TRUE) {
   # database connection
   con <- oefenwebDatabase::connect(database)
   domains <- suppressWarnings(DBI::dbReadTable(con, "domains"))
@@ -102,9 +104,11 @@ convertRating <- function(rating,
   }
 
   # print Results
-  cat("\nRating:", round(theta, 3), "\n")
-  cat("Transformed Rating:", round(transformedRating, 3), "\n")
-  cat("Q-Score:", qScore, "\n\n")
+  if (printResults) {
+    cat("\nRating:", round(theta, 3), "\n")
+    cat("Transformed Rating:", round(transformedRating, 3), "\n")
+    cat("Q-Score:", qScore, "\n\n")
+  }
 
   # close connection
   invisible(oefenwebDatabase::close_connection(con))
