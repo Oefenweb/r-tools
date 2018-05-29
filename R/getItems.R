@@ -28,20 +28,18 @@ getItems <- function(domainId,
   statusStr <- paste(itemStatus, collapse = ",")
 
   items <- suppressWarnings(DBI::dbGetQuery(con,
-                                            paste("SELECT *
+                                            paste0("SELECT *
                                                   FROM items
                                                   WHERE domain_id = ",
                                                   domainId,
-                                                  "AND status IN(",
-                                                  statusStr,
-                                                  ")")))
+                                                  " AND status IN (", statusStr, ")")))
 
   colnames(items)[which(colnames(items) == "id")] <- "item_id"
   itemIds <- items$item_id
   itemIdsPasted <- paste(itemIds, collapse =  ",")
 
   itemTags <- suppressWarnings(DBI::dbGetQuery(con,
-                                               paste(" SELECT *
+                                               paste0(" SELECT *
                                                      FROM items_tags
                                                      WHERE item_id IN (",
                                                      itemIdsPasted, ")")))
@@ -50,7 +48,7 @@ getItems <- function(domainId,
     tagIdsPasted <- paste(itemTags$tag_id, collapse = ",")
 
     tags <- suppressWarnings(DBI::dbGetQuery(con,
-                                             paste("SELECt *
+                                             paste0("SELECt *
                                                    FROM tags
                                                    WHERE id IN (",
                                                    tagIdsPasted, ")")))
