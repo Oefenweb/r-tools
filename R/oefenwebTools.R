@@ -23,6 +23,8 @@
 #' @section createDir function: Function to create directory on hard disk if it does not exist.
 #'
 #' @section UpperCase function: Capitalizes all first letters of a word in a strings (or verctor of strings).
+#' 
+#' @section ExtractDigits function: Extracts digits from string.
 #'
 #' @docType package
 #' @name oefenwebTools

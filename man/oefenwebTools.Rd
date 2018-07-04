@@ -40,3 +40,7 @@ different ratings and printed to the console.
  Capitalizes all first letters of a word in a strings (or verctor of strings).
 }
 
+\section{ExtractDigits function}{
+ Extracts digits from string.
+}
+
