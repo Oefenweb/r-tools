@@ -56,8 +56,8 @@ UpperCase <- function(x) {
 #' Function to extract all digits
 #' @param x String
 #' @return Numbers in in input string
-#' @import tidyr
+#' @import readr
 #' @export
 ExtractDigits <- function(x) {
-  return(tidyr::extract_numeric(x))
+  return(readr::parse_number(x))
 }
