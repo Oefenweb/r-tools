@@ -10,7 +10,7 @@ getItems(domainId, itemStatus = 1, dbname = "oefenweb_nl_app")
 \item{domainId}{An item domain id}
 
 \item{itemStatus}{Item status (in numeric or character),
-it is possible to enter severl states like this
+it is possible to enter several states like this
 for example: c(1, 2, 3).}
 
 \item{dbname}{Name of database}
