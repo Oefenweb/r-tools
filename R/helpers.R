@@ -52,3 +52,12 @@ UpperCase <- function(x) {
                                      substring(strsplit(x, " ")[[1]], 2),
                                      sep = "", collapse = " ")))
 }
+
+#' Function to extract all digits
+#' @param x String
+#' @return Numbers in in input string
+#' @import tidyr
+#' @export
+ExtractDigits <- function(x) {
+  return(tidyr::extract_numeric(x))
+}
