@@ -73,11 +73,29 @@ getItems <- function(domainId,
                    " (", domains$name[which(domains$id == domainId)], ")."))
     itemsWithTags <- items
   }
-
+  # add learning goals
+  itemLG <- suppressWarnings(DBI::dbGetQuery(con,
+                                               paste0("SELECT `ilg`.`item_id`,
+                                                              `ilg`.`learning_goal_id`,
+                                                              `lg`.`name` AS `lg_name`,
+                                                              `lg`.`description` AS `lg_description`,
+                                                              `lg`.`grade` AS `lg_grade`,
+                                                              `lg`.`position` AS `lg_position`,
+                                                              `lg`.`show_in_results` AS `lg_show_in_results`,
+                                                               `lg`.`is_playable` AS `lg_is_playable`
+                                                       FROM `items_learning_goals` AS `ilg`
+                                                       LEFT JOIN `learning_goals` AS `lg`
+                                                       ON `ilg`.`learning_goal_id` = `lg`.`id`
+                                                      WHERE `ilg`.`item_id` IN (",
+                                                      itemIdsPasted, ")")))
+  itemsWithTagsLG <- merge(x = itemsWithTags, y = itemLG, by = "item_id", all.x = TRUE)
+  message(paste0("Pay attention.\n",
+                 paste(strwrap("It's possible that there are multiple entries for an item if it is attached to
+                               multiple learning goals.", 50), collapse = "\n")))
   # close connnection
   oefenwebDatabase::close_connection(con)
   # remove JSON
-  parsedItems <- oefenwebItemJsonParser::itemJsonParser(itemsWithTags,
+  parsedItems <- oefenwebItemJsonParser::itemJsonParser(itemsWithTagsLG,
                                                         withFeedback = TRUE)
   return(parsedItems)
 }
