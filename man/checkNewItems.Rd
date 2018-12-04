@@ -4,7 +4,9 @@
 \alias{checkNewItems}
 \title{Function to check if there are any problems with new items}
 \usage{
-checkNewItems(item_ids, creationDate = NULL, domain_id = NULL)
+checkNewItems(item_ids, creationDate = NULL, domain_id = NULL,
+  correctAnsweredThresholdProp = 0.5, questionThresholdPer = 5,
+  overTimeThresholdPer = 5)
 }
 \arguments{
 \item{item_ids}{ids of new items}
@@ -12,6 +14,12 @@ checkNewItems(item_ids, creationDate = NULL, domain_id = NULL)
 \item{creationDate}{date of item creation}
 
 \item{domain_id}{id of domain}
+
+\item{correctAnsweredThresholdProp}{Lower threshold of proportion of correct answers}
+
+\item{questionThresholdPer}{Upper threshold of percentage of answer with question mark}
+
+\item{overTimeThresholdPer}{Upper threshold of percentage of answers that passed deadline}
 }
 \value{
 item summary if everythin is ok with new items

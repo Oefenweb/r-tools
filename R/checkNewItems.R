@@ -22,15 +22,20 @@ getItemIds <- function(creationDate, domain_id) {
 #' @param item_ids ids of new items
 #' @param creationDate date of item creation
 #' @param domain_id id of domain
+#' @param correctAnsweredThresholdProp Lower threshold of proportion of correct answers
+#' @param questionThresholdPer Upper threshold of percentage of answer with question mark
+#' @param overTimeThresholdPer Upper threshold of percentage of answers that passed deadline
 #' @return item summary if everythin is ok with new items
 #' @import oefenwebDatabase
 #' @import DBI
 #' @import dplyr
 #' @export
-checkNewItems <- function(item_ids, creationDate = NULL, domain_id = NULL) {
-  correctAnsweredThreshold <- 0.5
-  questionThreshold <- 5
-  overTimeThreshold <- 5
+checkNewItems <- function(item_ids,
+                          creationDate = NULL,
+                          domain_id = NULL,
+                          correctAnsweredThresholdProp = 0.5,
+                          questionThresholdPer = 5,
+                          overTimeThresholdPer = 5) {
   con <- oefenwebDatabase::connect()
   if (missing(item_ids)) {
     if (is.null(creationDate) | is.null(domain_id)) {
@@ -53,7 +58,7 @@ checkNewItems <- function(item_ids, creationDate = NULL, domain_id = NULL) {
   }
   , error = function(e) {
     message("error parsing items, just using unparsed items")
-    data.frame()
+    NULL
   })
   # get log_records
   log_records <- suppressWarnings(DBI::dbGetQuery(con, paste0(
@@ -80,21 +85,24 @@ checkNewItems <- function(item_ids, creationDate = NULL, domain_id = NULL) {
   }
   # correct answer too low
   correctLow <- subset(item_responses,
-                       avg_correct_answered < correctAnsweredThreshold)
+                       avg_correct_answered < correctAnsweredThresholdProp)
   # questionmark use too high
   questionmarkHigh <- subset(item_responses,
-                             per_questionmark > questionThreshold)
+                             per_questionmark > questionThresholdPer)
   # passed deadline too high
   overTimeHigh <- subset(item_responses,
-                         per_overTime > overTimeThreshold)
+                         per_overTime > overTimeThresholdPer)
   # make summary
   itemSummary <- data.frame(check = c("Number of input item ids:",
                                       "Items created:",
                                       "item log_records:",
                                       "earliest log_record:",
-                                      paste0("Correct Answer Proportion lower than ", correctAnsweredThreshold, ":"),
-                                      paste0("Percentage Question Mark higher than ", questionThreshold, ":"),
-                                      paste0("Percentage Passed Deadline higher than ", overTimeThreshold, ":")),
+                                      paste0("Correct Answer Proportion lower than ",
+                                             correctAnsweredThresholdProp, ":"),
+                                      paste0("Percentage Question Mark higher than ",
+                                             questionThresholdPer, ":"),
+                                      paste0("Percentage Passed Deadline higher than ",
+                                             overTimeThresholdPer, ":")),
                             count = c(length(item_ids),
                                       paste(unique(items$created), collapse = " - "),
                                       nrow(log_records),
