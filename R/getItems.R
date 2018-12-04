@@ -6,6 +6,9 @@
 #'                   for example: c(1, 2, 3).
 #' @param dbname Name of database
 #' @return Item dataset with tags (if available) and without JSON formatting
+#' @import dplyr
+#' @import oefenwebItemJsonParser
+#' @import oefenwebDatabase
 #' @export
 getItems <- function(domainId,
                      itemStatus = 1,
@@ -54,7 +57,7 @@ getItems <- function(domainId,
                                                    tagIdsPasted, ")")))
     colnames(tags)[which(colnames(tags) == "id")] <- "tag_id"
 
-    tagNames <- plyr::join(itemTags, tags, by = "tag_id")[, c("item_id", "name")]
+    tagNames <- dplyr::left_join(itemTags, tags, by = "tag_id")[, c("item_id", "name")]
 
     maxTagNr <- max(table(tagNames$item_id))
 
@@ -67,7 +70,7 @@ getItems <- function(domainId,
       tagDF[i, c(2:(length(curTags) + 1))] <- curTags
     }
 
-    itemsWithTags <- plyr::join(items, tagDF, by = "item_id")
+    itemsWithTags <- dplyr::left_join(items, tagDF, by = "item_id")
   } else {
     message(paste0("There are no tags for items with domain id ", domainId,
                    " (", domains$name[which(domains$id == domainId)], ")."))

@@ -26,6 +26,8 @@
 #' 
 #' @section ExtractDigits function: Extracts digits from string.
 #'
+#' @section checkNewItems function: Function to check if new items work properly
+#' 
 #' @docType package
 #' @name oefenwebTools
 NULL

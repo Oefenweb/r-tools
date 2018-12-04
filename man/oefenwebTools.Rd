@@ -44,3 +44,7 @@ different ratings and printed to the console.
  Extracts digits from string.
 }
 
+\section{checkNewItems function}{
+ Function to check if new items work properly
+}
+
