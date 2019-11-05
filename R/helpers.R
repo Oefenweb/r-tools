@@ -20,7 +20,10 @@ lintrProfile <- function(lintrPath) {
   rm(list = setdiff(ls(), "lintrPath"))
   lint(lintrPath,
        with_defaults(line_length_linter(120),
-                     camel_case_linter = NULL))
+                     camel_case_linter = NULL,
+                     cyclocomp_linter = NULL,
+                     seq_linter = NULL,
+                     object_name_linter = NULL))
 
 }
 
